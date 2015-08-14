@@ -8,3 +8,5 @@ meteor-platform
 autopublish
 insecure
 materialize:materialize
+momentjs:moment
+lbee:moment-helpers
