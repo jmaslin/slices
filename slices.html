@@ -12,14 +12,17 @@
 		        <li><a href="sass.html">New Party</a></li>
 		        <li><a href="badges.html">Find Pizza</a></li>
 		        <li><a href="collapsible.html">Profile</a></li>
+		        <li>{{> loginButtons}}</li>
 		      </ul>
 		    </div>
 		  </nav>		
 		</header>
 
+		{{#if currentUser}}
 		<form class="new-pizza">
 			<input type="text" name="name" placeholder="Name your new pizza party" />
 		</form>
+		{{/if}}
 
 		<div class="row">
 			<ul>
@@ -41,13 +44,14 @@
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">{{name}}</span>
-      	<p>Party started {{moFromNow createdAt}}</p>
+      	<p>Party started <span class="badge">{{moFromNow createdAt}}</span></p>
+      	<p>Started by <span class="badge">{{username}}</span></p>
         <p>Md-fab with each topping of the pizza or something</p>
       </div>
       <div class="card-action">
-        <a href="#">View Pizza</a>
-        <a href="#">Join Party</a>
-        <button class="delete waves-effect btn red">Cancel Party</button>
+        <a class="waves-effect waves-light btn-flat">Details</a>
+        <a class="waves-effect waves-light btn-flat">Join Party</a>
+        <a class="delete waves-effect white-text btn red">Cancel Party</a>
       </div>
     </div>
   </div>

@@ -6,7 +6,8 @@
 
 meteor-platform
 autopublish
-insecure
 materialize:materialize
 momentjs:moment
 lbee:moment-helpers
+accounts-password
+accounts-ui

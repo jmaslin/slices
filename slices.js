@@ -14,10 +14,7 @@ if (Meteor.isClient) {
 
       var pizzaName = event.target.name.value;
 
-      Pizzas.insert({
-        name: pizzaName,
-        createdAt: new Date()
-      });
+      Meteor.call("addPizza", pizzaName);
 
       event.target.name.value = "";
     }
@@ -25,12 +22,36 @@ if (Meteor.isClient) {
 
   Template.pizza.events({
     "click .delete": function () {
-      Pizzas.remove(this._id);
+      Meteor.call("deletePizza", this._id);
     }
 
-  })
+  });
+
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+  });
 
 }
+
+Meteor.methods({
+
+  addPizza: function (pizza) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    Pizzas.insert({
+      name: pizzaName,
+      createdAt: new Date(),
+      owner: Meteor.userId(),
+      username: Meteor.user().username
+    });
+  },
+  deletePizza: function (pizzaId) {
+    Pizzas.remove(pizzaId);
+  }
+
+});
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
