@@ -11,3 +11,6 @@ lbee:moment-helpers
 accounts-password
 accounts-ui
 iron:router
+meteorhacks:kadira
+meteorhacks:zones
+meteorhacks:kadira-profiler
