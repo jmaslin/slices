@@ -28,11 +28,11 @@ if (Meteor.isClient) {
     },
     "click .join": function() {
       Meteor.call("joinPizza", this._id, Meteor.userId());
-      Materialize.toast('You joined a pizza party!', 2000);
+      Materialize.toast('You joined the pizza party: ' + this.name, 2000);
     },
     "click .leave": function() {
       Meteor.call("leavePizza", this._id, Meteor.userId());
-      Materialize.toast('You left the pizza party!', 2000);
+      Materialize.toast('You left the pizza party: ' + this.name, 2000);
     }
 
   });
