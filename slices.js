@@ -28,9 +28,11 @@ if (Meteor.isClient) {
     },
     "click .join": function() {
       Meteor.call("joinPizza", this._id, Meteor.userId());
+      Materialize.toast('You joined a pizza party!', 2000);
     },
     "click .leave": function() {
       Meteor.call("leavePizza", this._id, Meteor.userId());
+      Materialize.toast('You left the pizza party!', 2000);
     }
 
   });
@@ -52,12 +54,12 @@ if (Meteor.isClient) {
       }
       return false;
     },
-    getMembers: function () {
-      Meteor.call("getUsers", this.members, function(err, data) {
-        console.log(data);
-        return data;
-      });
-    }
+    // getMembers: function () {
+    //   Meteor.call("getUsers", this.members, function(err, data) {
+    //     console.log(data);
+    //     return data;
+    //   });
+    // }
 
   });
 

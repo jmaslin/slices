@@ -10,3 +10,4 @@ momentjs:moment
 lbee:moment-helpers
 accounts-password
 accounts-ui
+iron:router
