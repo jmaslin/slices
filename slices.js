@@ -2,6 +2,8 @@ Pizzas = new Mongo.Collection("pizzas");
 
 if (Meteor.isClient) {
 
+  Meteor.subscribe("pizzas");
+
   Template.body.helpers({
     pizzas: function () {
       return Pizzas.find({}, {sort: {createdAt: -1}});
@@ -27,6 +29,13 @@ if (Meteor.isClient) {
 
   });
 
+  Template.pizza.helpers({
+    isOwner: function () {
+      return this.owner === Meteor.userId();
+    }
+
+  });
+
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
@@ -35,7 +44,7 @@ if (Meteor.isClient) {
 
 Meteor.methods({
 
-  addPizza: function (pizza) {
+  addPizza: function (pizzaName) {
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
@@ -54,6 +63,11 @@ Meteor.methods({
 });
 
 if (Meteor.isServer) {
+
+  Meteor.publish("pizzas", function() {
+    return Pizzas.find();
+  });
+
   Meteor.startup(function () {
     // code to run on server at startup
   });
