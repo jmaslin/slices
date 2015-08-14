@@ -3,12 +3,38 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+	<div class="container">
+		<header>
+			<h1>Join a Pizza Party</h1>
+		</header>
 
-  {{> hello}}
+		<ul>
+			{{#each pizzas}}
+				{{> pizza}}
+			{{/each}}
+		</ul>
+
+ </div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="pizza">
+
+	<div class="row">
+	  <div class="col s12 m7">
+	    <div class="card">
+	      <div class="card-image">
+	        <img src="images/slices-alt.jpg">
+	        <span class="card-title">{{ name }}</span>
+	      </div>
+	      <div class="card-content">
+	        <p>Md-fab with each topping of the pizza or something</p>
+	      </div>
+	      <div class="card-action">
+	        <a href="#">View Pizza</a>
+	        <a href="#">Join Party</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 </template>
