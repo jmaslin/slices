@@ -25,6 +25,12 @@ if (Meteor.isClient) {
   Template.pizza.events({
     "click .delete": function () {
       Meteor.call("deletePizza", this._id);
+    },
+    "click .join": function() {
+      Meteor.call("joinPizza", this._id, Meteor.userId());
+    },
+    "click .leave": function() {
+      Meteor.call("leavePizza", this._id, Meteor.userId());
     }
 
   });
@@ -35,6 +41,9 @@ if (Meteor.isClient) {
     },
     isOtherUser: function () {
       return this.owner !== Meteor.userId() && Meteor.user();
+    },
+    isPizzaMember: function () {
+      return this.members.indexOf(Meteor.userId()) >= 0;
     }
 
   });
@@ -61,6 +70,18 @@ Meteor.methods({
   },
   deletePizza: function (pizzaId) {
     Pizzas.remove(pizzaId);
+  },
+  joinPizza: function (pizzaId, userId) {
+    Pizzas.update(
+      { "_id": pizzaId },
+      { "$push": { members: userId } }
+    );
+  },
+  leavePizza: function (pizzaId, userId) {
+    Pizzas.update(
+      { "_id": pizzaId },
+      { "$pull": { members: userId } }
+    );    
   }
 
 });
