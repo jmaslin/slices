@@ -21,6 +21,13 @@ if (Meteor.isClient) {
 
       event.target.name.value = "";
     }
+  });
+
+  Template.pizza.events({
+    "click .delete": function () {
+      Pizzas.remove(this._id);
+    }
+
   })
 
 }
