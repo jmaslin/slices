@@ -47,7 +47,11 @@
       	<p>Party started <span class="badge">{{moFromNow createdAt}}</span></p>
       	<p>Started by <span class="badge">{{username}}</span></p>
       	<p>Pizza Members: 
-      		<span class="badge">{{getMembers}}</span>
+      		<span class="badge">
+      			{{#each pizzaMembers}}
+      				{{> member}}
+      			{{/each}}
+      		</span>
       	</p>
         <p>Md-fab with each topping of the pizza or something</p>
       </div>
@@ -72,5 +76,5 @@
 </template>
 
 <template name="member">
-	<span>{{ member }}</span>
+	<span>{{ name }}</span>
 </template>

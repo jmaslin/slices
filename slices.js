@@ -54,31 +54,33 @@ if (Meteor.isClient) {
       }
       return false;
     },
-    getMembers: function () {
+    pizzaMembers: function () {
       var pizza = Pizzas.find({ '_id' : this._id }).fetch();
       console.log(pizza);
       if (!pizza[0].members) { return; }
 
       memberArray = [];
 
-    for (i=0; i < pizza[0].members.length; i++) {
-      memberArray.push(pizza[0].members[i].username);
-    }
+      for (i=0; i < pizza[0].members.length; i++) {
+        memberArray.push({ name: pizza[0].members[i].username });
+      }
 
-    console.log(memberArray);
+      return memberArray;
 
-    var memberString = "";
+    // console.log(memberArray);
 
-    for (i=0; i < memberArray.length; i++) {
-      //if (i == memberString.length) {
-      // memberString = memberString + memberArray[i];
-      //}
-      //else {
-        memberString = memberString + memberArray[i] + ", ";
-      //}
-    }
+    // var memberString = "";
 
-    return memberString.substring(0, memberString.length - 2);
+    // for (i=0; i < memberArray.length; i++) {
+    //   //if (i == memberString.length) {
+    //   // memberString = memberString + memberArray[i];
+    //   //}
+    //   //else {
+    //     memberString = memberString + memberArray[i] + ", ";
+    //   //}
+    // }
+
+    // return memberString.substring(0, memberString.length - 2);
 
   }
   });
