@@ -54,13 +54,33 @@ if (Meteor.isClient) {
       }
       return false;
     },
-    // getMembers: function () {
-    //   Meteor.call("getUsers", this.members, function(err, data) {
-    //     console.log(data);
-    //     return data;
-    //   });
-    // }
+    getMembers: function () {
+      var pizza = Pizzas.find({ '_id' : this._id }).fetch();
+      console.log(pizza);
+      if (!pizza[0].members) { return; }
 
+      memberArray = [];
+
+    for (i=0; i < pizza[0].members.length; i++) {
+      memberArray.push(pizza[0].members[i].username);
+    }
+
+    console.log(memberArray);
+
+    var memberString = "";
+
+    for (i=0; i < memberArray.length; i++) {
+      //if (i == memberString.length) {
+      // memberString = memberString + memberArray[i];
+      //}
+      //else {
+        memberString = memberString + memberArray[i] + ", ";
+      //}
+    }
+
+    return memberString.substring(0, memberString.length - 2);
+
+  }
   });
 
   Accounts.ui.config({
@@ -80,8 +100,11 @@ Meteor.methods({
       name: pizzaName,
       createdAt: new Date(),
       owner: Meteor.userId(),
-      username: Meteor.user().username
+      username: Meteor.user().username,
+      members: [{ _id : Meteor.userId(), username: Meteor.user().username, slices: 8}]
     });
+
+    console.log(Pizzas.find({"owner": Meteor.userId()}));
   },
   deletePizza: function (pizzaId) {
     Pizzas.remove(pizzaId);
@@ -89,7 +112,7 @@ Meteor.methods({
   joinPizza: function (pizzaId, userId) {
     Pizzas.update(
       { "_id": pizzaId },
-      { "$push": { members: { _id: userId } } }
+      { "$push": { members: { _id: userId, username: Meteor.user().username } } }
     );
   },
   leavePizza: function (pizzaId, userId) {
@@ -97,16 +120,6 @@ Meteor.methods({
       { "_id": pizzaId },
       { "$pull": { members: { _id: userId } } }
     );    
-  },
-  getUsers: function (members) {
-    if (!members) { return; }
-    console.log(members, Meteor.users.find({}));
-    Meteor.users.find(
-      { '_id': { $in : members } },
-      function (err, docs) {
-        console.log(docs);
-      }
-    );
   }
 
 });
