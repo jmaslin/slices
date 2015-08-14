@@ -43,7 +43,20 @@ if (Meteor.isClient) {
       return this.owner !== Meteor.userId() && Meteor.user();
     },
     isPizzaMember: function () {
-      return this.members.indexOf(Meteor.userId()) >= 0;
+      if (this.members) {
+        for (var x = 0; x < this.members.length; x++) {
+          if (this.members[x]._id == Meteor.userId()) {
+            return true;
+          }
+        }
+      }
+      return false;
+    },
+    getMembers: function () {
+      Meteor.call("getUsers", this.members, function(err, data) {
+        console.log(data);
+        return data;
+      });
     }
 
   });
@@ -74,14 +87,24 @@ Meteor.methods({
   joinPizza: function (pizzaId, userId) {
     Pizzas.update(
       { "_id": pizzaId },
-      { "$push": { members: userId } }
+      { "$push": { members: { _id: userId } } }
     );
   },
   leavePizza: function (pizzaId, userId) {
     Pizzas.update(
       { "_id": pizzaId },
-      { "$pull": { members: userId } }
+      { "$pull": { members: { _id: userId } } }
     );    
+  },
+  getUsers: function (members) {
+    if (!members) { return; }
+    console.log(members, Meteor.users.find({}));
+    Meteor.users.find(
+      { '_id': { $in : members } },
+      function (err, docs) {
+        console.log(docs);
+      }
+    );
   }
 
 });

@@ -46,7 +46,9 @@
         <span class="card-title activator grey-text text-darken-4">{{name}}</span>
       	<p>Party started <span class="badge">{{moFromNow createdAt}}</span></p>
       	<p>Started by <span class="badge">{{username}}</span></p>
-      	<p>Pizza Members: {{ members }}</p>
+      	<p>Pizza Members: 
+      		{{getMembers}}
+      	</p>
         <p>Md-fab with each topping of the pizza or something</p>
       </div>
       <div class="card-action">
@@ -67,4 +69,8 @@
     </div>
   </div>
 
+</template>
+
+<template name="member">
+	<span>{{ member }}</span>
 </template>
