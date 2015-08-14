@@ -110,7 +110,7 @@ Meteor.methods({
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username,
-      members: [{ _id : Meteor.userId(), username: Meteor.user().username, slices: 8}]
+      members: [{ _id : Meteor.userId(), slices: 8 }]
     });
 
     console.log(Pizzas.find({"owner": Meteor.userId()}));
@@ -121,7 +121,7 @@ Meteor.methods({
   joinPizza: function (pizzaId, userId) {
     Pizzas.update(
       { "_id": pizzaId },
-      { "$push": { members: { _id: userId, username: Meteor.user().username } } }
+      { "$push": { members: { _id: userId } } }
     );
   },
   leavePizza: function (pizzaId, userId) {
