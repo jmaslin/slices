@@ -4,6 +4,8 @@ if (Meteor.isClient) {
 
   Meteor.subscribe("pizzas");
 
+  Meteor.subscribe('allUsers');
+
   Template.body.helpers({
     pizzas: function () {
       return Pizzas.find({}, {sort: {createdAt: -1}});
@@ -56,16 +58,21 @@ if (Meteor.isClient) {
     },
     pizzaMembers: function () {
       var pizza = Pizzas.find({ '_id' : this._id }).fetch();
-      console.log(pizza);
       if (!pizza[0].members) { return; }
 
       memberArray = [];
 
       for (i=0; i < pizza[0].members.length; i++) {
-        memberArray.push({ name: pizza[0].members[i].username });
+        memberArray.push(pizza[0].members[i]._id);
       }
 
-      return memberArray;
+      var mems = Meteor.users.find({ '_id' : { $in : memberArray }}).fetch();
+
+      console.log(mems);
+
+
+
+      return mems;
 
     // console.log(memberArray);
 
@@ -130,6 +137,10 @@ if (Meteor.isServer) {
 
   Meteor.publish("pizzas", function() {
     return Pizzas.find();
+  });
+
+  Meteor.publish("allUsers", function () {
+  return Meteor.users.find({});
   });
 
   Meteor.startup(function () {
