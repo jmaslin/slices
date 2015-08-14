@@ -49,13 +49,13 @@
         <p>Md-fab with each topping of the pizza or something</p>
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn-flat">Details</a>
-        {{#unless isOwner}}
-        <a class="waves-effect waves-light btn-flat">Join Party</a>
-        {{/unless}}
-        {{#if isOwner}}
-        <a class="delete waves-effect white-text btn red">Cancel Party</a>
+	      <a class="waves-effect waves-light btn-flat">Details</a>
+       	{{#if isOtherUser}}
+        	<a class="waves-effect waves-light btn-flat">Join Party</a>
       	{{/if}}
+      	{{#if isOwner}}
+	        <a class="delete waves-effect white-text btn red">Cancel Party</a>
+	      {{/if}}
       </div>
     </div>
   </div>

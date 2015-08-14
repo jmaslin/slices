@@ -32,6 +32,9 @@ if (Meteor.isClient) {
   Template.pizza.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
+    },
+    isOtherUser: function () {
+      return this.owner !== Meteor.userId() && Meteor.user();
     }
 
   });
