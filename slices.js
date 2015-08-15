@@ -6,6 +6,11 @@ if (Meteor.isClient) {
 
   Meteor.subscribe('allUsers');
 
+  Meteor.startup(function () {
+    $(".map-card").hide();
+    $(".my-pizzas").hide();
+  })
+
   Template.body.helpers({
     pizzas: function () {
       return Pizzas.find({}, {sort: {createdAt: -1}});
@@ -21,6 +26,10 @@ if (Meteor.isClient) {
       Meteor.call("addPizza", pizzaName);
 
       event.target.name.value = "";
+    },
+    "click .find": function () {
+      $(".map-card").show();
+      $(".my-pizzas").show();
     }
   });
 
