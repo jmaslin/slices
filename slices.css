@@ -43,11 +43,11 @@
 
 .map {
 	position: relative;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	height: 35vh;
 }
 
-.map iframe {
+.map-container {
 	width: 100%;
 	height: 100%;
 }
@@ -86,5 +86,5 @@
 .map-container {
   width: 100%;
   max-width: 100%;
-  height: 500px;
+  height: 100%;
 }

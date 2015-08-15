@@ -9,6 +9,8 @@ if (Meteor.isClient) {
   Meteor.subscribe("pizzas");
   Meteor.subscribe('allUsers');
 
+  var MAP_ZOOM = 20;
+
   console.log(Pizzas.find({}, {sort: {createdAt: -1}}));
 
   Session.set('showMap', false);
@@ -62,16 +64,32 @@ if (Meteor.isClient) {
   });
 
   Template.map.helpers({
+    geolocationError: function() {
+      var error = Geolocation.error();
+      return error && error.message;
+    },
     mapOptions: function() {
+      var latLng = Geolocation.latLng();
       if (GoogleMaps.loaded()) {
         return {
-          center: new google.maps.LatLng(-37.8136, 144.9631),
-          zoom: 8
+          center: new google.maps.LatLng(latLng.lat, latLng.lng),
+          zoom: MAP_ZOOM
         };
       }
     }
 
-  })
+  });
+
+  Template.map.onCreated(function() {
+    GoogleMaps.ready('map', function(map) {
+      var latLng = Geolocation.latLng();
+
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(latLng.lat, latLng.lng),
+        map: map.instance
+      });
+    });
+  });
 
   Template.pizza.events({
     "click .delete": function () {
