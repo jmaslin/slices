@@ -1,15 +1,9 @@
-Router.route('/', function () {
-  this.render('Home', {});
-});
-
 Pizzas = new Mongo.Collection("pizzas");
 
 if (Meteor.isClient) {
 
   Meteor.subscribe("pizzas");
   Meteor.subscribe('allUsers');
-
-  console.log(Pizzas.find({}, {sort: {createdAt: -1}}));
 
   Session.set('showMap', false);
 
