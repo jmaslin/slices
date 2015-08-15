@@ -56,7 +56,10 @@ if (Meteor.isClient) {
       if (GoogleMaps.loaded()) {
         return {
           center: new google.maps.LatLng(latLng.lat, latLng.lng),
-          zoom: MAP_ZOOM
+          zoom: MAP_ZOOM,
+          streetViewControl: false,
+          zoomControl: false,
+          mapTypeControl: false
         };
       }
     }
@@ -79,7 +82,8 @@ if (Meteor.isClient) {
       if (! marker) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(latLng.lat, latLng.lng),
-          map: map.instance
+          map: map.instance,
+          icon: "images/slice-transparent.png"
         });
       }
       // The marker already exists, so we'll just change its position.
