@@ -28,8 +28,15 @@ if (Meteor.isClient) {
       event.target.name.value = "";
     },
     "click .find": function () {
-      $(".map-card").show();
-      $(".my-pizzas").show();
+      if ($('.map-card').css('display') == 'none') {
+        $(".map-card").show();
+        $(".my-pizzas").show();
+      }
+
+      else if ($('.map-card').css('display') != 'none') {
+        $(".map-card").hide();
+        $(".my-pizzas").hide();
+      }
     }
   });
 
