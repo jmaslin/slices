@@ -19,7 +19,7 @@ if (Meteor.isClient) {
 
   Template.home.helpers({
     showMap: function () {
-      return Session.get('showMap');
+      return Session.get('showMap') && Geolocation.latLng();
     },
     openPizzas: function () {
       return Pizzas.find({}, {sort: {createdAt: -1}});
@@ -35,17 +35,6 @@ if (Meteor.isClient) {
       Meteor.call("addPizza", pizzaName);
 
       event.target.pizzaName.value = "";
-    },
-    "click .find": function () {
-      if ($('.map-card').css('display') == 'none') {
-        $(".map-card").show();
-        $(".my-pizzas").show();
-      }
-
-      else if ($('.map-card').css('display') != 'none') {
-        $(".map-card").hide();
-        $(".my-pizzas").hide();
-      }
     }
   });
 
@@ -58,11 +47,11 @@ if (Meteor.isClient) {
   });
 
   Template.map.helpers({
-    geolocationError: function() {
+    geolocationError: function () {
       var error = Geolocation.error();
       return error && error.message;
     },
-    mapOptions: function() {
+    mapOptions: function () {
       var latLng = Geolocation.latLng();
       if (GoogleMaps.loaded()) {
         return {
@@ -74,8 +63,8 @@ if (Meteor.isClient) {
 
   });
 
-  Template.map.onCreated(function() {
-    GoogleMaps.ready('map', function(map) {
+  Template.map.onCreated(function () {
+    GoogleMaps.ready('map', function (map) {
       var latLng = Geolocation.latLng();
 
       var marker = new google.maps.Marker({
@@ -89,11 +78,11 @@ if (Meteor.isClient) {
     "click .delete": function () {
       Meteor.call("deletePizza", this._id);
     },
-    "click .join": function() {
+    "click .join": function () {
       Meteor.call("joinPizza", this._id, Meteor.userId());
       Materialize.toast('You joined the pizza party: ' + this.name, 2000);
     },
-    "click .leave": function() {
+    "click .leave": function () {
       Meteor.call("leavePizza", this._id, Meteor.userId());
       Materialize.toast('You left the pizza party: ' + this.name, 2000);
     }
