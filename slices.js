@@ -5,13 +5,8 @@ if (Meteor.isClient) {
   Meteor.subscribe("pizzas");
   Meteor.subscribe('allUsers');
 
-<<<<<<< HEAD
   var MAP_ZOOM = 20;
 
-  console.log(Pizzas.find({}, {sort: {createdAt: -1}}));
-
-=======
->>>>>>> e24a792087e10030b53d09245c7dca9f099cf3f2
   Session.set('showMap', false);
 
   Meteor.startup(function () {
