@@ -30,11 +30,11 @@ if (Meteor.isClient) {
     "submit .new-pizza": function (event) {
       event.preventDefault();
 
-      var pizzaName = event.target.pizzaName.value;
+      Router.go('/add-pizza');
 
-      Meteor.call("addPizza", pizzaName);
+      Session.set('pizzaName', event.target.pizzaName.value);
 
-      event.target.pizzaName.value = "";
+      //event.target.pizzaName.value = "";
     }
   });
 
@@ -45,6 +45,22 @@ if (Meteor.isClient) {
     }
 
   });
+
+  Template.addPizza.events({
+    "click .map-confirm": function () {
+      console.log(Geolocation.latLng());
+
+      if (Session.get('pizzaName')) {
+
+        var pizza = Session.get('pizzaName');
+        Meteor.call("addPizza", pizza, Geolocation.latLng().lat, Geolocation.latLng().lng);
+        delete Session.keys['pizzaName'];
+
+      }
+
+      Router.go('/');
+    }
+  })
 
   Template.map.helpers({
     geolocationError: function () {
@@ -59,7 +75,8 @@ if (Meteor.isClient) {
           zoom: MAP_ZOOM,
           streetViewControl: false,
           zoomControl: false,
-          mapTypeControl: false
+          mapTypeControl: false,
+          maxZoom: 18
         };
       }
     }
@@ -72,6 +89,13 @@ if (Meteor.isClient) {
   GoogleMaps.ready('map', function(map) {
     var marker;
 
+    var image = {
+      url: "images/slice-transparent.png",
+      size: new google.maps.Size(50, 50),
+      origin: new google.maps.Point(0,0),
+      anchor: new google.maps.Point(25,25)
+    }
+
     // Create and move the marker when latLng changes.
     self.autorun(function() {
       var latLng = Geolocation.latLng();
@@ -83,7 +107,7 @@ if (Meteor.isClient) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(latLng.lat, latLng.lng),
           map: map.instance,
-          icon: "images/slice-transparent.png"
+          icon: image
         });
       }
       // The marker already exists, so we'll just change its position.
@@ -152,7 +176,7 @@ if (Meteor.isClient) {
 
 Meteor.methods({
 
-  addPizza: function (pizzaName) {
+  addPizza: function (pizzaName, lat, lng) {
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
@@ -162,6 +186,7 @@ Meteor.methods({
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username,
+      location: { latitude: lat, longitude: lng},
       members: [{ _id : Meteor.userId(), slices: 8 }]
     });
 
