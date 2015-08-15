@@ -6,3 +6,30 @@
 .btn, .btn-flat {
 	text-align: center;
 }
+
+.card .card-action .details,
+.card .card-action .edit {
+	margin-right: 10px;
+}
+
+.card .card-action .join,
+.card .card-action .leave, 
+.card .card-action .delete {
+	margin-right: 0px;
+}
+
+.card-action .row {
+	width: 100%;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.card-action .non-owner {
+	margin-bottom: 10px;
+}
+
+.card .card-action {
+	padding-bottom: 0px;
+	padding-top: 10px;
+}
+

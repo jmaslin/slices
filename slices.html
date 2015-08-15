@@ -54,22 +54,28 @@
       			{{/each}}
       		</span>
       	</p>
-        <p>Md-fab with each topping of the pizza or something</p>
       </div>
       <div class="card-action">
-	      <a class="waves-effect waves-light btn-flat">Details</a>
+      	<div class="row non-owner">
+	    	<a class="col details waves-effect waves-light btn-flat s6">Details</a>
        	{{#if isOtherUser}}
        		{{#if isPizzaMember}}
-        		<a class="leave waves-effect waves-light btn-flat">Leave Party</a>
+        		<a class="col leave waves-effect waves-light btn-flat s6">Leave Party</a>
        		{{/if}}
  					{{#unless isPizzaMember}}
-        		<a class="join waves-effect waves-light btn-flat">Join Party</a>
+        		<a class="col join waves-effect waves-light btn-flat s6">Join Party</a>
         	{{/unless}}
       	{{/if}}
+      	</div>
+      	<div class="row">
       	{{#if isOwner}}
-        	<a class="waves-effect waves-light btn-flat">Edit</a>
-	        <a class="delete waves-effect white-text btn red">Cancel Party</a>
-	      {{/if}}
+        	<a class="col edit waves-effect black-text btn yellow s6">Edit</a>
+	        <a class="col delete waves-effect white-text btn red s6">Cancel Party</a>
+	    {{else}}
+	    	<div class="divider"></div>
+	    {{/if}}
+	    
+	    </div>
       </div>
     </div>
   </div>

@@ -50,6 +50,7 @@ if (Meteor.isClient) {
       if (this.members) {
         for (var x = 0; x < this.members.length; x++) {
           if (this.members[x]._id == Meteor.userId()) {
+            console.log(this.members[x]._id + " " + Meteor.userId());
             return true;
           }
         }
@@ -90,7 +91,7 @@ Meteor.methods({
       members: [{ _id : Meteor.userId(), slices: 8 }]
     });
 
-    console.log(Pizzas.find({"owner": Meteor.userId()}));
+    console.log(Pizzas.find({"owner": Meteor.userId()}).fetch());
   },
   deletePizza: function (pizzaId) {
     Pizzas.remove(pizzaId);
