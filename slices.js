@@ -57,39 +57,16 @@ if (Meteor.isClient) {
       return false;
     },
     pizzaMembers: function () {
-      var pizza = Pizzas.find({ '_id' : this._id }).fetch();
-      if (!pizza[0].members) { return; }
 
-      memberArray = [];
+      var ids = this.members.map(function (obj) {
+        return obj._id;
+      });
 
-      for (i=0; i < pizza[0].members.length; i++) {
-        memberArray.push(pizza[0].members[i]._id);
-      }
+      var members = Meteor.users.find({ '_id' : { $in : ids }}).fetch();
 
-      var mems = Meteor.users.find({ '_id' : { $in : memberArray }}).fetch();
+      return members;
+    }
 
-      console.log(mems);
-
-
-
-      return mems;
-
-    // console.log(memberArray);
-
-    // var memberString = "";
-
-    // for (i=0; i < memberArray.length; i++) {
-    //   //if (i == memberString.length) {
-    //   // memberString = memberString + memberArray[i];
-    //   //}
-    //   //else {
-    //     memberString = memberString + memberArray[i] + ", ";
-    //   //}
-    // }
-
-    // return memberString.substring(0, memberString.length - 2);
-
-  }
   });
 
   Accounts.ui.config({
