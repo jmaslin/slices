@@ -9,11 +9,13 @@ if (Meteor.isClient) {
   Meteor.subscribe("pizzas");
   Meteor.subscribe('allUsers');
 
+  console.log(Pizzas.find({}, {sort: {createdAt: -1}}));
+
   Session.set('showMap', false);
 
   Meteor.startup(function () {
     // $(".map-card").hide();
-    $(".my-pizzas").hide();
+    // $(".my-pizzas").hide();
     $(".button-collapse").sideNav();
 
     GoogleMaps.load();
@@ -22,24 +24,21 @@ if (Meteor.isClient) {
   Template.home.helpers({
     showMap: function () {
       return Session.get('showMap');
-    }
-  });
-
-  Template.body.helpers({
-    pizzas: function () {
+    },
+    openPizzas: function () {
       return Pizzas.find({}, {sort: {createdAt: -1}});
     }
   });
 
-  Template.body.events({
+  Template.home.events({
     "submit .new-pizza": function (event) {
       event.preventDefault();
 
-      var pizzaName = event.target.name.value;
+      var pizzaName = event.target.pizzaName.value;
 
       Meteor.call("addPizza", pizzaName);
 
-      event.target.name.value = "";
+      event.target.pizzaName.value = "";
     },
     "click .find": function () {
       if ($('.map-card').css('display') == 'none') {
