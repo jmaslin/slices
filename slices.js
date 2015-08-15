@@ -9,6 +9,7 @@ if (Meteor.isClient) {
   Meteor.startup(function () {
     $(".map-card").hide();
     $(".my-pizzas").hide();
+    $(".button-collapse").sideNav();
   })
 
   Template.body.helpers({
