@@ -1,18 +1,29 @@
+Router.route('/', function () {
+  this.render('Home', {});
+});
+
 Pizzas = new Mongo.Collection("pizzas");
 
 if (Meteor.isClient) {
 
   Meteor.subscribe("pizzas");
-
   Meteor.subscribe('allUsers');
 
+  Session.set('showMap', false);
+
   Meteor.startup(function () {
-    $(".map-card").hide();
+    // $(".map-card").hide();
     $(".my-pizzas").hide();
     $(".button-collapse").sideNav();
 
     GoogleMaps.load();
-  })
+  });
+
+  Template.home.helpers({
+    showMap: function () {
+      return Session.get('showMap');
+    }
+  });
 
   Template.body.helpers({
     pizzas: function () {
@@ -41,6 +52,14 @@ if (Meteor.isClient) {
         $(".my-pizzas").hide();
       }
     }
+  });
+
+  Template.navbar.events({
+    "click .find-pizzas": function () {
+      Session.set('showMap', ! Session.get('showMap'));
+      console.log(Session.get('showMap'));
+    }
+
   });
 
   Template.map.helpers({
