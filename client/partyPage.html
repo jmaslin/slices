@@ -1,24 +1,30 @@
 <template name="partyPage">
 
-<h1>{{ name }}</h1>
+	<h1>{{ name }}</h1>
 
-<div>
-	<h4>Members</h4>
-	{{#each pizzaMembers}}
-		{{> member}}
-	{{/each}}
-</div>
-
-{{mapOptions}}
-
-<div class="row">
-	<div class="map-container">
-		{{> googleMap name="partyMap" options=mapOptions}}
+	<div>
+		<h4>Members</h4>
+		{{#each pizzaMembers}}
+			{{> member}}
+		{{/each}}
 	</div>
-</div>
+
+	<div class="row">
+		{{> partyMap}}
+	</div>
 
 </template>
 
 <template name="partyMember">
 
+</template>
+
+<template name="partyMap">
+
+	<div class="map">
+		<div class="map-container">
+			{{> googleMap name="map" options=mapOptions}}
+		</div>
+	</div>
+	
 </template>

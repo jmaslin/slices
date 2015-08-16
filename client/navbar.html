@@ -11,7 +11,14 @@
 		      <ul class="right hide-on-med-and-down">
 		        <li><a href="#" class="new-party">New Party</a></li>
 		        <li><a href="#" class="find-pizzas">Find Pizza</a></li>
-		        <li><a href="#">Profile</a></li>
+						{{#if currentUser}}
+		        	<li><a href="#">Profile</a></li>
+							<li><a href="#" class="btn-logout">Logout</a></li>
+						{{/if}}
+						{{#unless currentUser}}
+							<li><a href="#" class="btn-login dropdown-button" data-activates="login-form">Login</a></li>
+						{{/unless}}
+
 		      </ul>
 		      <ul class="side-nav" id="mobile-menu">
 		        <li><a href="#" class="new-party">New Party</a></li>
@@ -22,4 +29,8 @@
 	    </div>
 	  </nav>		
 	</header>
+
+	<div id="login-form" class="dropdown-content">
+		{{>atForm state=''}}
+	</div>
 </template>
