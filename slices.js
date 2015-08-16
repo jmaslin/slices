@@ -61,6 +61,10 @@ if (Meteor.isClient) {
     },
     "click .new-party": function () {
       Session.set('showForm', ! Session.get('showForm'));
+    },
+    "click .btn-logout": function () {
+      AccountsTemplates.logout();
+      console.log("Logout called.");
     }
 
   });
