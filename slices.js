@@ -78,6 +78,7 @@ if (Meteor.isClient) {
       }
 
       Router.go('/');
+      sAlert.success("You started a new pizza party!");
     },
     "click .map-cancel": function () {
       Router.go('/');

@@ -1,45 +1,45 @@
 <template name="home">
 
-	<div class="container">
+	<div class="row"> 
+	{{> atForm state='signIn'}}
+	</div>
 
-		{{#if showForm}}
-		<form class="new-pizza" action="/add-pizza">
-			<input type="text" name="pizzaName" placeholder="Name your new pizza party" />
-		</form>
-		{{/if}}
+	{{#if showForm}}
+	<form class="new-pizza" action="/add-pizza">
+		<input type="text" name="pizzaName" placeholder="Name your new pizza party" />
+	</form>
+	{{/if}}
 
-		{{#if showMap}}
-		<div class="row map-row">
-			<div class= "col card map-card s12">	
-					<div class="map">
-						{{> map}}
-					</div>	
-			</div>
-			<!-- <div class="col card map-text-card s12">
-			</div> -->
+	{{#if showMap}}
+	<div class="row map-row">
+		<div class= "col card map-card s12">	
+				<div class="map">
+					{{> map}}
+				</div>	
 		</div>
-		{{/if}}
+		<!-- <div class="col card map-text-card s12">
+		</div> -->
+	</div>
+	{{/if}}
 
-		<div class="card my-pizzas white-text center s12"><h4>Open Pizzas</h4></div>
+	<div class="card my-pizzas white-text center s12"><h4>Open Parties</h4></div>
 
-		<div class="row">
-			<ul class="pizzas">
-				{{#each openPizzas}}
-					{{> pizza}}
-				{{/each}}
-			</ul>
-		</div>
+	<div class="row">
+		<ul class="pizzas">
+			{{#each openPizzas}}
+				{{> pizza}}
+			{{/each}}
+		</ul>
+	</div>
 
-		<div class="card my-pizzas white-text center s12"><h4>My Pizzas</h4></div>
+	<div class="card my-pizzas white-text center s12"><h4>My Parties</h4></div>
 
-		<div class="row">
-			<ul class="pizzas">
-				{{#each userPizzas}}
-					{{> pizza}}
-				{{/each}}
-			</ul>
-		</div>
-
+	<div class="row">
+		<ul class="pizzas">
+			{{#each userPizzas}}
+				{{> pizza}}
+			{{/each}}
+		</ul>
 	</div>
 
 </template>
