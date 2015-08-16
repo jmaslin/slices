@@ -37,6 +37,9 @@ if (Meteor.isClient) {
     },
     userPizzas: function () {
       return Pizzas.find({ owner: Meteor.userId() }, {sort: {createdAt: -1}});
+    },
+    showForm: function() {
+      return Session.get('showForm') && Meteor.user();
     }
   });
 
@@ -55,15 +58,9 @@ if (Meteor.isClient) {
   Template.navbar.events({
     "click .find-pizzas": function () {
       Session.set('showMap', ! Session.get('showMap'));
-      console.log(Session.get('showMap'));
     },
     "click .new-party": function () {
-
-      console.log(Meteor.user());
-      if (Meteor.user()) {
-        Session.set('showForm', ! Session.get('showForm'));
-        console.log(Session.get('showForm'));
-      }
+      Session.set('showForm', ! Session.get('showForm'));
     }
 
   });
