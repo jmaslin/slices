@@ -106,6 +106,20 @@ if (Meteor.isClient) {
 
   });
 
+  Template.partyPage.helpers({
+    mapOptions: function () {
+      var self = this;
+      return {
+        center: self.location,
+        zoom: MAP_ZOOM,
+        streetViewControl: false,
+        zoomControl: false,
+        mapTypeControl: false,
+        maxZoom: 18
+      };
+    }
+  })
+
   Template.map.onCreated(function() {  
     var self = this;
 
@@ -133,7 +147,7 @@ if (Meteor.isClient) {
 
       });
     }
-    
+
   });
 
   Template.pizza.events({
