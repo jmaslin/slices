@@ -32,6 +32,14 @@
 
 		<div class="card my-pizzas white-text center s12"><h4>My Pizzas</h4></div>
 
+		<div class="row">
+			<ul class="pizzas">
+				{{#each userPizzas}}
+					{{> pizza}}
+				{{/each}}
+			</ul>
+		</div>
+
 	</div>
 
 </template>

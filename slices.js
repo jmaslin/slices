@@ -22,7 +22,10 @@ if (Meteor.isClient) {
       return Session.get('showMap') && Geolocation.latLng();
     },
     openPizzas: function () {
-      return Pizzas.find({}, {sort: {createdAt: -1}});
+      return Pizzas.find({ owner: { $not: Meteor.userId() } }, {sort: {createdAt: -1}});
+    },
+    userPizzas: function () {
+      return Pizzas.find({ owner: Meteor.userId() }, {sort: {createdAt: -1}});
     }
   });
 
