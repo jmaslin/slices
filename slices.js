@@ -15,6 +15,7 @@ if (Meteor.isClient) {
     // $(".my-pizzas").hide();
     $(".button-collapse").sideNav();
 
+
     sAlert.config({
           effect: 'bouncyflip',
           position: 'top-right',
@@ -203,6 +204,10 @@ if (Meteor.isClient) {
     // }
 
   });
+
+  Template.pizza.rendered = function () {
+    $('.tooltipped').tooltip({delay: 25});
+  };
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_AND_EMAIL"

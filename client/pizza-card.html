@@ -9,12 +9,12 @@
         <span class="card-title activator grey-text text-darken-4">{{name}}</span>
       	<p>Party started <span class="badge">{{moFromNow createdAt}}</span></p>
       	<p>Started by <span class="badge">{{username}}</span></p>
-      	<p>Pizza Members: 
-      		<span class="badge">
+      	<p class="center">Pizza Members: 
+      		<div class="row center">
       			{{#each pizzaMembers}}
       				{{> member}}
       			{{/each}}
-      		</span>
+      		</div>
       	</p>
       </div>
       <div class="card-action">
@@ -44,5 +44,7 @@
 </template>
 
 <template name="member">
-  <span><img class="profPic tooltipped" data-position="top" data-delay="50" data-tooltip="{{ imageUrl }}" src="{{ imageUrl }}"></span>
+<div class="col s3 tooltipped"  data-position="top" data-delay="25" data-tooltip="{{ username }}">
+  <span><a><img class="profPic" src="{{ imageUrl }}"></a></span>
+</div>
 </template>
