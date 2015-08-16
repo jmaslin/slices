@@ -78,6 +78,9 @@ if (Meteor.isClient) {
       }
 
       Router.go('/');
+    },
+    "click .map-cancel": function () {
+      Router.go('/');
     }
   })
 

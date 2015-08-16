@@ -69,7 +69,7 @@
 	padding-right: 0 !important;
 }
 
-.map-confirm {
+.map-confirm, .map-cancel {
 	margin-top: 3vh;
 }
 
