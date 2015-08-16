@@ -1,7 +1,10 @@
 <template name="home">
 
 	<div class="row"> 
-	{{> atForm state='signIn'}}
+		{{#unless currentUser}}
+			<!-- {{> atForm state='signIn'}} -->
+			{{> atForm state=''}}
+		{{/unless}}
 	</div>
 
 	{{#if showForm}}
