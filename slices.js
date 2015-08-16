@@ -107,34 +107,34 @@ if (Meteor.isClient) {
   });
 
   Template.map.onCreated(function() {  
-  var self = this;
+    var self = this;
 
-  if (Session.get('pizzaName')) {
-    GoogleMaps.ready('map', function(map) {
-    var latLng = Geolocation.latLng();
+    if (Session.get('pizzaName')) {
+      GoogleMaps.ready('map', function(map) {
+        var latLng = Geolocation.latLng();
 
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(latLng.lat, latLng.lng),
-      map: map.instance
-    });
-  });
-  }
-  else {
-    GoogleMaps.ready('map', function(map) {
-      var mapPizzas = Parties.find().fetch();
-
-      for (i = 0; i < mapPizzas.length; i++) {
         var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(mapPizzas[i].location.latitude, mapPizzas[i].location.longitude),
+          position: new google.maps.LatLng(latLng.lat, latLng.lng),
           map: map.instance
         });
+      });
+    } else {
+      GoogleMaps.ready('map', function(map) {
+        var mapPizzas = Parties.find().fetch();
 
-        console.log(mapPizzas[i].location);
-      }
+        for (i = 0; i < mapPizzas.length; i++) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(mapPizzas[i].location.latitude, mapPizzas[i].location.longitude),
+            map: map.instance
+          });
 
-    });
-  }
-});
+          console.log(mapPizzas[i].location);
+        }
+
+      });
+    }
+    
+  });
 
   Template.pizza.events({
     "click .delete": function () {
