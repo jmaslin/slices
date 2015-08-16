@@ -109,14 +109,18 @@ if (Meteor.isClient) {
   Template.partyPage.helpers({
     mapOptions: function () {
       var self = this;
-      return {
-        center: self.location,
-        zoom: MAP_ZOOM,
-        streetViewControl: false,
-        zoomControl: false,
-        mapTypeControl: false,
-        maxZoom: 18
-      };
+      GoogleMaps.ready('partyMap', function(map) {
+        console.log(map);
+        console.log(self.location);
+        return {
+          center: new google.maps.LatLng(self.location),
+          zoom: MAP_ZOOM,
+          streetViewControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+          maxZoom: 18
+        };
+      });
     }
   })
 
