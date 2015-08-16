@@ -3,6 +3,12 @@
 	border-radius: 0;
 }
 
+.profPic {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+}
+
 .pizzas {
 	margin-top: 5px;
 }

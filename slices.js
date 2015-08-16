@@ -205,7 +205,7 @@ if (Meteor.isClient) {
   });
 
   Accounts.ui.config({
-    passwordSignupFields: "USERNAME_ONLY"
+    passwordSignupFields: "USERNAME_AND_EMAIL"
   });
 
 }
@@ -252,6 +252,18 @@ if (Meteor.isServer) {
 
   Meteor.publish("allUsers", function () {
   return Meteor.users.find({});
+  });
+
+  Accounts.onCreateUser(function(options, user) {
+
+    user.imageUrl = "http://i.stack.imgur.com/IHLNO.jpg";
+
+    if (options.profile) {
+      user.profile = options.profile;
+    }
+
+    return user;
+
   });
 
   Meteor.startup(function () {
