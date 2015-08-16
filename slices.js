@@ -1,8 +1,8 @@
-Pizzas = new Mongo.Collection("pizzas");
+Parties = new Mongo.Collection("parties");
 
 if (Meteor.isClient) {
 
-  Meteor.subscribe("pizzas");
+  Meteor.subscribe("parties");
   Meteor.subscribe('allUsers');
 
   var MAP_ZOOM = 16;
@@ -33,10 +33,10 @@ if (Meteor.isClient) {
       return Session.get('showMap') && Geolocation.latLng();
     },
     openPizzas: function () {
-      return Pizzas.find({ owner: { $not: Meteor.userId() } }, {sort: {createdAt: -1}});
+      return Parties.find({ owner: { $not: Meteor.userId() } }, {sort: {createdAt: -1}});
     },
     userPizzas: function () {
-      return Pizzas.find({ owner: Meteor.userId() }, {sort: {createdAt: -1}});
+      return Parties.find({ owner: Meteor.userId() }, {sort: {createdAt: -1}});
     },
     showForm: function() {
       return Session.get('showForm') && Meteor.user();
@@ -121,7 +121,7 @@ if (Meteor.isClient) {
   }
   else {
     GoogleMaps.ready('map', function(map) {
-      var mapPizzas = Pizzas.find().fetch();
+      var mapPizzas = Parties.find().fetch();
 
       for (i = 0; i < mapPizzas.length; i++) {
         var marker = new google.maps.Marker({
@@ -168,17 +168,17 @@ if (Meteor.isClient) {
         }
       }
       return false;
-    },
-    pizzaMembers: function () {
-
-      var ids = this.members.map(function (obj) {
-        return obj._id;
-      });
-
-      var members = Meteor.users.find({ '_id' : { $in : ids }}).fetch();
-
-      return members;
     }
+    // pizzaMembers: function () {
+
+    //   var ids = this.members.map(function (obj) {
+    //     return obj._id;
+    //   });
+
+    //   var members = Meteor.users.find({ '_id' : { $in : ids }}).fetch();
+
+    //   return members;
+    // }
 
   });
 
@@ -195,7 +195,7 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    Pizzas.insert({
+    Parties.insert({
       name: pizzaName,
       createdAt: new Date(),
       owner: Meteor.userId(),
@@ -203,20 +203,18 @@ Meteor.methods({
       location: { latitude: lat, longitude: lng},
       members: [{ _id : Meteor.userId(), slices: 8 }]
     });
-
-    console.log(Pizzas.find({"owner": Meteor.userId()}).fetch());
   },
   deletePizza: function (pizzaId) {
-    Pizzas.remove(pizzaId);
+    Parties.remove(pizzaId);
   },
   joinPizza: function (pizzaId, userId) {
-    Pizzas.update(
+    Parties.update(
       { "_id": pizzaId },
       { "$push": { members: { _id: userId } } }
     );
   },
   leavePizza: function (pizzaId, userId) {
-    Pizzas.update(
+    Parties.update(
       { "_id": pizzaId },
       { "$pull": { members: { _id: userId } } }
     );    
@@ -226,8 +224,8 @@ Meteor.methods({
 
 if (Meteor.isServer) {
 
-  Meteor.publish("pizzas", function() {
-    return Pizzas.find();
+  Meteor.publish("parties", function() {
+    return Parties.find();
   });
 
   Meteor.publish("allUsers", function () {

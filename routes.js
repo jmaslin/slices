@@ -11,8 +11,10 @@ Router.route('/add-pizza', function () {
 	this.render('addPizza', {});
 });
 
-Router.route('/parties/:_id', function () {
-	this.render('Party', {
-
-	})
-})
+Router.route('/parties/:_id', {
+	template: 'partyPage',
+	data: function () {
+		var partyId = this.params._id;
+		return Parties.findOne({ _id: partyId });
+	}
+});
