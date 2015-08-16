@@ -38,7 +38,7 @@ if (Meteor.isClient) {
     userPizzas: function () {
       return Parties.find({ owner: Meteor.userId() }, {sort: {createdAt: -1}});
     },
-    showForm: function() {
+    showForm: function () {
       return Session.get('showForm') && Meteor.user();
     }
   });
@@ -71,14 +71,14 @@ if (Meteor.isClient) {
 
   Template.addPizza.events({
     "click .map-confirm": function () {
-      console.log(Geolocation.latLng());
 
       if (Session.get('pizzaName')) {
-
-        var pizza = Session.get('pizzaName');
-        Meteor.call("addPizza", pizza, Geolocation.latLng().lat, Geolocation.latLng().lng);
+        var pizza = {
+          name: Session.get('pizzaName'),
+          location: Geolocation.latLng()
+        }
+        Meteor.call("addParty", pizza);
         delete Session.keys['pizzaName'];
-
       }
 
       Router.go('/');
@@ -96,7 +96,7 @@ if (Meteor.isClient) {
     },
     mapOptions: function () {
       var latLng = Geolocation.latLng();
-      if (GoogleMaps.loaded()) {
+      if (GoogleMaps.loaded() && latLng) {
         return {
           center: new google.maps.LatLng(latLng.lat, latLng.lng),
           zoom: MAP_ZOOM,
@@ -113,26 +113,40 @@ if (Meteor.isClient) {
   Template.partyPage.helpers({
     mapOptions: function () {
       var self = this;
-      GoogleMaps.ready('partyMap', function(map) {
-        console.log(map);
+      if (GoogleMaps.loaded()) {
         console.log(self.location);
         return {
-          center: new google.maps.LatLng(self.location),
+          center: new google.maps.LatLng(self.location.latitude, self.location.longitude),
           zoom: MAP_ZOOM,
           streetViewControl: false,
           zoomControl: false,
           mapTypeControl: false,
           maxZoom: 18
         };
-      });
+      }
     }
   })
 
-  Template.map.onCreated(function() {  
+  Template.partyMap.onCreated(function () {
+
+    console.log("TEST");
+    GoogleMaps.ready('map', function (map) {
+
+      console.log(map);
+
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(this.location.latitude, this.location.longitude),
+        map: map.instance
+      });
+           
+    });
+  })
+
+  Template.map.onCreated(function () {  
     var self = this;
 
     if (Session.get('pizzaName')) {
-      GoogleMaps.ready('map', function(map) {
+      GoogleMaps.ready('map', function (map) {
         var latLng = Geolocation.latLng();
 
         var marker = new google.maps.Marker({
@@ -141,8 +155,8 @@ if (Meteor.isClient) {
         });
       });
     } else {
-      GoogleMaps.ready('map', function(map) {
-        var mapPizzas = Parties.find().fetch();
+      GoogleMaps.ready('map', function (map) {
+        var mapPizzas = Parties.find({ location: { $exists: true} }).fetch();
 
         for (i = 0; i < mapPizzas.length; i++) {
           var marker = new google.maps.Marker({
@@ -212,17 +226,17 @@ if (Meteor.isClient) {
 
 Meteor.methods({
 
-  addPizza: function (pizzaName, lat, lng) {
+  addParty: function (party) {
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
     Parties.insert({
-      name: pizzaName,
+      name: party.name,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username,
-      location: { latitude: lat, longitude: lng},
+      location: { latitude: party.location.lat, longitude: party.location.lng },
       members: [{ _id : Meteor.userId(), slices: 8 }]
     });
   },
@@ -246,7 +260,7 @@ Meteor.methods({
 
 if (Meteor.isServer) {
 
-  Meteor.publish("parties", function() {
+  Meteor.publish("parties", function () {
     return Parties.find();
   });
 
@@ -254,7 +268,7 @@ if (Meteor.isServer) {
   return Meteor.users.find({});
   });
 
-  Accounts.onCreateUser(function(options, user) {
+  Accounts.onCreateUser(function (options, user) {
 
     user.imageUrl = "http://i.stack.imgur.com/IHLNO.jpg";
 
