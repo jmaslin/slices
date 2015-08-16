@@ -32,6 +32,8 @@ iron:router@1.0.9
 iron:url@1.0.9
 jquery@1.11.3_2
 json@1.0.3
+juliancwirko:s-alert@2.4.2
+juliancwirko:s-alert-bouncyflip@1.1.4
 launch-screen@1.0.2
 lbee:moment-helpers@1.1.0
 less@1.0.14

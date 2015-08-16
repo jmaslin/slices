@@ -8,11 +8,22 @@ if (Meteor.isClient) {
   var MAP_ZOOM = 16;
 
   Session.set('showMap', false);
+  Session.set('showForm', false);
 
   Meteor.startup(function () {
     // $(".map-card").hide();
     // $(".my-pizzas").hide();
     $(".button-collapse").sideNav();
+
+    sAlert.config({
+          effect: 'bouncyflip',
+          position: 'top-right',
+          timeout: 4000,
+          html: false,
+          onRouteClose: true,
+          stack: true,
+          offset: 0
+      });    
 
     GoogleMaps.load();
   });
@@ -45,6 +56,14 @@ if (Meteor.isClient) {
     "click .find-pizzas": function () {
       Session.set('showMap', ! Session.get('showMap'));
       console.log(Session.get('showMap'));
+    },
+    "click .new-party": function () {
+
+      console.log(Meteor.user());
+      if (Meteor.user()) {
+        Session.set('showForm', ! Session.get('showForm'));
+        console.log(Session.get('showForm'));
+      }
     }
 
   });
@@ -122,11 +141,11 @@ if (Meteor.isClient) {
     },
     "click .join": function () {
       Meteor.call("joinPizza", this._id, Meteor.userId());
-      Materialize.toast('You joined the pizza party: ' + this.name, 2000);
+      sAlert.success('You joined the pizza party: ' + this.name);
     },
     "click .leave": function () {
       Meteor.call("leavePizza", this._id, Meteor.userId());
-      Materialize.toast('You left the pizza party: ' + this.name, 2000);
+      sAlert.warning('You left the pizza party: ' + this.name);
     }
 
   });
