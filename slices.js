@@ -206,7 +206,6 @@ if (Meteor.isClient) {
       if (this.members) {
         for (var x = 0; x < this.members.length; x++) {
           if (this.members[x]._id == Meteor.userId()) {
-            console.log(this.members[x]._id + " " + Meteor.userId());
             return true;
           }
         }
@@ -283,8 +282,9 @@ if (Meteor.isServer) {
   Accounts.onCreateUser(function (options, user) {
 
     user.profile = {
-      'imageUrl' : "images/pizzaicons/pizza" + Math.floor((Math.random() * 4) + 1) + ".png",
-      'imagePrompt' : true
+      'imageUrl' : "/images/pizzaicons/pizza" + Math.floor((Math.random() * 4) + 1) + ".png",
+      'imagePrompt' : true,
+      'friends' : []
     }
 
     return user;

@@ -8,7 +8,7 @@
 						<img class="profile-page-image" src="{{ profile.imageUrl }}">
 					</div>
 					<div class="col s8 center">
-						<h3 class="center">{{ username }}</h3>
+						<h3 class="center" id="profile-username">{{ username }}</h3>
 					</div>
 
 				</div>
@@ -17,6 +17,13 @@
 			</div>
 			<div class="col card s12 m2 l2 offset-m1 offset-l1">
 				<h4 class="center-align">FRIENDS</h4>
+				<div class="profile-friendlist">
+					<div class="row">
+					{{#each getProfileFriends _id }}
+						{{> profileFriend}}
+					{{/each}}
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -43,6 +50,12 @@
 			</div>
 
 		</div>
+
+		{{#unless isOwnProfile _id}}
+		{{#unless isFriend _id}}
+		<div class="waves-effect btn add-friend">Add Friend</div>
+		{{/unless}}
+		{{/unless}}
 	
 </template>
 
@@ -52,4 +65,10 @@
 		<h5 class="center-align">{{ name }}</h5>
 	</div>
 
+</template>
+
+<template name="profileFriend">
+	<div class="col s4">
+	<img class="friend-icon" src="{{ profile.imageUrl}}">
+	</div>
 </template>

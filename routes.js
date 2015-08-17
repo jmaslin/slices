@@ -22,8 +22,10 @@ Router.route('/parties/:_id', {
 Router.route('/users/:username', {
 	template: 'userPage',
 	data: function () {
+		if (Meteor.user()) {
 		var user = this.params.username;
 		$('.tooltipped').tooltip("close");
 		return Meteor.users.findOne({ 'username' : user });
+	}
 	}
 })
