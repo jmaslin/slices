@@ -41,6 +41,13 @@ if (Meteor.isClient) {
     },
     showForm: function () {
       return Session.get('showForm') && Meteor.user();
+    },
+    needsImage: function () {
+      if (Meteor.user()) {
+        return Meteor.user().profile.imagePrompt;
+      }
+
+      return false;
     }
   });
 
@@ -219,7 +226,7 @@ if (Meteor.isClient) {
 
   });
 
-  Template.pizza.rendered = function () {
+  Template.member.rendered = function () {
     $('.tooltipped').tooltip({delay: 25});
   };
 
@@ -270,15 +277,20 @@ if (Meteor.isServer) {
   });
 
   Meteor.publish("allUsers", function () {
-  return Meteor.users.find({});
+  return Meteor.users.find();
   });
 
   Accounts.onCreateUser(function (options, user) {
 
-    user.imageUrl = "http://i.stack.imgur.com/IHLNO.jpg";
+    user.profile = {
+      'imageUrl' : "http://i.stack.imgur.com/IHLNO.jpg",
+      'imagePrompt' : true
+    }
 
     if (options.profile) {
       user.profile = options.profile;
+      user.profile.imageUrl = "http://i.stack.imgur.com/IHLNO.jpg";
+      user.profile.imagePrompt = true;
     }
 
     return user;

@@ -1,5 +1,8 @@
 <template name="home">
 
+{{#if needsImage}}
+	{{> picForm}}
+{{/if}}
 
 	{{#if showForm}}
 	<form class="new-pizza" action="/add-pizza">

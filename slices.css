@@ -3,9 +3,18 @@
 	border-radius: 0;
 }
 
-.profPic {
-	width: 25px;
-	height: 25px;
+.pizza-members {
+	margin-top: 5px;
+}
+
+.grav-confirm {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.prof-pic {
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 }
 
