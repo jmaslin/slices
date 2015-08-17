@@ -3,6 +3,27 @@
 	border-radius: 0;
 }
 
+.pic-form-image {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.info-row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.info-row .col h3 {
+	margin-top: 0px;
+}
+
+.profile-page-image {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+
 .pizza-members-top {
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -10,6 +31,12 @@
 
 .pizza-members-bottom {
 	margin-bottom: 0px;
+}
+
+.profile-row {
+	width: 100%;
+	margin-left: 0px !important;
+	margin-right: 0px !important;
 }
 
 .grav-confirm {

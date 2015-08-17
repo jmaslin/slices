@@ -18,3 +18,12 @@ Router.route('/parties/:_id', {
 		return Parties.findOne({ _id: partyId });
 	}
 });
+
+Router.route('/users/:username', {
+	template: 'userPage',
+	data: function () {
+		var user = this.params.username;
+		$('.tooltipped').tooltip("close");
+		return Meteor.users.findOne({ 'username' : user });
+	}
+})
