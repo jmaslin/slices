@@ -57,6 +57,14 @@
 	margin-bottom: 5px;
 }
 
+.add-friend {
+	margin-bottom: 10px;
+}
+
+.remove-friend {
+	margin-bottom: 10px;
+}
+
 .friend-icon {
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -89,6 +97,10 @@
 
 .card .card-content {
 	padding-bottom: 0px;
+}
+
+.profile-friendlist .row {
+	margin-bottom: 0;
 }
 
 .profile-row .card h4 {

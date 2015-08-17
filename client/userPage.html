@@ -26,6 +26,13 @@
 					</ul>
 					</div>
 				</div>
+				{{#unless isOwnProfile _id}}
+			{{#unless isFriend _id}}
+			<div class="col waves-effect btn yellow black-text add-friend s12">Add Friend</div>
+			{{else}}
+			<div class="col waves-effect btn red remove-friend s12">Remove</div>
+			{{/unless}}
+			{{/unless}}
 			</div>
 		</div>
 
@@ -52,12 +59,6 @@
 			</div>
 
 		</div>
-
-		{{#unless isOwnProfile _id}}
-		{{#unless isFriend _id}}
-		<div class="waves-effect btn add-friend">Add Friend</div>
-		{{/unless}}
-		{{/unless}}
 	
 </template>
 
