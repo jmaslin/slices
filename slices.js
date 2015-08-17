@@ -233,6 +233,10 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_AND_EMAIL"
   });
 
+  Template.profileFriend.rendered = function () {
+    $('.tooltipped').tooltip({delay: 25});
+  };
+
 }
 
 Meteor.methods({

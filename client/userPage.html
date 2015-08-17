@@ -19,9 +19,11 @@
 				<h4 class="center-align">FRIENDS</h4>
 				<div class="profile-friendlist">
 					<div class="row">
+					<ul>
 					{{#each getProfileFriends _id }}
 						{{> profileFriend}}
 					{{/each}}
+					</ul>
 					</div>
 				</div>
 			</div>
@@ -68,7 +70,5 @@
 </template>
 
 <template name="profileFriend">
-	<div class="col s4">
-	<img class="friend-icon" src="{{ profile.imageUrl}}">
-	</div>
+	<a href="/users/{{ username }}"><img class="friend-icon col s4 m4 l4 tooltipped" data-position="top" data-delay="25" data-tooltip="{{ username }}" src="{{ profile.imageUrl }}"></a>
 </template>
