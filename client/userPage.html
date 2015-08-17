@@ -9,11 +9,6 @@
 					</div>
 					<div class="col s8 center">
 						<h3 class="center">{{ username }}</h3>
-						{{#each getUserOwnedPizzas _id }}
-						<div class="row center-align">
-							{{> profilePizza}}
-						</div>
-						{{/each}}
 					</div>
 
 				</div>
@@ -21,14 +16,40 @@
 
 			</div>
 			<div class="col card s12 m2 l2 offset-m1 offset-l1">
-				<h4>FRIENDS</h4>
+				<h4 class="center-align">FRIENDS</h4>
 			</div>
+		</div>
+
+		<div class="card my-pizzas white-text center s12"><h4>pizzas created by {{ username }}</h4></div>
+
+		<div class="card profile-pizza-list">
+
+			<div class="row profile-owned-pizzas center-align">
+			{{#each getUserOwnedPizzas _id }}
+				{{> profilePizza}}
+			{{/each}}
+			</div>
+
+		</div>
+
+		<div class="card my-pizzas white-text center s12"><h4>pizzas joined by {{ username }}</h4></div>
+
+		<div class="card profile-pizza-list">
+
+			<div class="row profile-owned-pizzas center-align">
+			{{#each getUserMemberPizzas _id }}
+				{{> profilePizza}}
+			{{/each}}
+			</div>
+
 		</div>
 	
 </template>
 
 <template name="profilePizza">
 
-<h2 class="center-align">{{ name }}</h2>
+	<div class="col s6 m4 l3">
+		<h5 class="center-align">{{ name }}</h5>
+	</div>
 
 </template>
