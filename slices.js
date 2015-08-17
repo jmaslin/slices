@@ -283,14 +283,8 @@ if (Meteor.isServer) {
   Accounts.onCreateUser(function (options, user) {
 
     user.profile = {
-      'imageUrl' : "http://i.stack.imgur.com/IHLNO.jpg",
+      'imageUrl' : "images/pizzaicons/pizza" + Math.floor((Math.random() * 4) + 1) + ".png",
       'imagePrompt' : true
-    }
-
-    if (options.profile) {
-      user.profile = options.profile;
-      user.profile.imageUrl = "http://i.stack.imgur.com/IHLNO.jpg";
-      user.profile.imagePrompt = true;
     }
 
     return user;

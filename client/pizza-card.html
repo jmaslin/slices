@@ -10,11 +10,16 @@
       	<p>Party started <span class="badge">{{moFromNow createdAt}}</span></p>
       	<p>Started by <span class="badge">{{username}}</span></p>
       	<h6 class="center">Pizza Members 
-      		<div class="row center pizza-members">
-      			{{#each pizzaMembers}}
+      		<div class="row center pizza-members-top">
+      			{{#each pizzaMembersTop}}
       				{{> member}}
       			{{/each}}
       		</div>
+          <div class="row center pizza-members-bottom">
+            {{#each pizzaMembersBottom}}
+              {{> member}}
+            {{/each}}
+          </div>
       	</h6>
       </div>
       <div class="card-action">
@@ -44,7 +49,7 @@
 </template>
 
 <template name="member">
-<div class="col s3 tooltipped"  data-position="top" data-delay="25" data-tooltip="{{ username }}">
+<div class="col s3 m3 l3 tooltipped"  data-position="top" data-delay="25" data-tooltip="{{ username }}">
   <span><a><img class="prof-pic" src="{{ profile.imageUrl }}"></a></span>
 </div>
 </template>

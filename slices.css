@@ -3,8 +3,13 @@
 	border-radius: 0;
 }
 
-.pizza-members {
+.pizza-members-top {
 	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.pizza-members-bottom {
+	margin-bottom: 0px;
 }
 
 .grav-confirm {
@@ -28,6 +33,10 @@
 
 .btn, .btn-flat {
 	text-align: center;
+}
+
+.card .card-content {
+	padding-bottom: 0px;
 }
 
 .card .card-action .details,
