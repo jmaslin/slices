@@ -172,21 +172,19 @@ if (Meteor.isClient) {
     //       map: map.instance
     //     });
     //   });
-    // } else {
-    //   GoogleMaps.ready('map', function (map) {
-    //     var mapPizzas = Parties.find({ location: { $exists: true} }).fetch();
+      GoogleMaps.ready('map', function (map) {
+        var mapPizzas = Parties.find({ location: { $exists: true} }).fetch();
 
-    //     for (i = 0; i < mapPizzas.length; i++) {
-    //       var marker = new google.maps.Marker({
-    //         position: new google.maps.LatLng(mapPizzas[i].location.latitude, mapPizzas[i].location.longitude),
-    //         map: map.instance
-    //       });
+        for (i = 0; i < mapPizzas.length; i++) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(mapPizzas[i].location.latitude, mapPizzas[i].location.longitude),
+            map: map.instance
+          });
 
-    //       console.log(mapPizzas[i].location);
-    //     }
+          console.log(mapPizzas[i].location);
+        }
 
-    //   });
-    // }
+      });
 
   });
 
