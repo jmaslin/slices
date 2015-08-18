@@ -1,8 +1,8 @@
 <template name="picForm">  
-  <div class="map-container">
+  <div class="pic-form-container">
     
   	<div class="card image-prompt center-align">
-  		<h5>You currently have no profile image. Would you like to import from Gravatar?</h5>
+  		<h5>You have no profile image! Would you like to import from Gravatar?</h5>
  		<div class="row">
  			<div class="col s5 offset-s1 l1 offset-l5">
  				<img class="pic-form-image" src="{{gravUrl}}">
@@ -12,6 +12,7 @@
  				<div class="grav-deny waves-effect btn red">Skip</div>	
  			</div>
  		</div>
+ 		<h6>We currenly only support Gravatar for custom profile images. If you don't have an account with Gravatar, consider signing up <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8a37b9596c0cbe9d5e2c34eebf751c86%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3Da5d740bffe25d5bc92fe3ee227609ae87e4997595add4cfb927595de1fdd6891%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">here</a>!<br> Clicking "Skip" will generate a random pizza icon for you!</h6>
 
   	</div>
 

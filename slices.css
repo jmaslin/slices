@@ -3,6 +3,10 @@
 	border-radius: 0;
 }
 
+.image-prompt .row {
+	margin-bottom: 5px;
+}
+
 .pic-form-image {
 	width: 100px;
 	height: 100px;
