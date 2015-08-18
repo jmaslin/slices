@@ -46,7 +46,7 @@
           <div class="map">
               <div class="map-container">
                 {{#unless geolocationError}}
-                  {{> googleMap name="pizzaMap" options=pizzaMapOptions}}
+                  {{> googleMap name=_id options=pizzaMapOptions}}
                 {{else}}
                   Geolocation failed: {{geolocationError}}
                 {{/unless}}

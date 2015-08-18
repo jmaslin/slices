@@ -156,7 +156,7 @@ if (Meteor.isClient) {
     console.log(self.data.location);
 
     if (self.data.location) {
-      GoogleMaps.ready('pizzaMap', function (map) {
+      GoogleMaps.ready(self.data._id, function (map) {
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(self.data.location.latitude, self.data.location.longitude),
         map: map.instance
