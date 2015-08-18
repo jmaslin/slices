@@ -153,6 +153,8 @@ if (Meteor.isClient) {
   Template.pizza.onCreated(function () {  
     var self = this;
 
+    var mapId = self.data.location;
+
     console.log(self.data.location);
 
     if (self.data.location) {
@@ -202,7 +204,23 @@ if (Meteor.isClient) {
     },
     "click .activator": function () {
       console.log("PIZZA MAP GO");
+
       Session.set('showPizzaMap', true);
+
+      console.log(this.location);
+
+      if (this.location) {
+      GoogleMaps.ready(this._id, function (map) {
+          var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(this.location.latitude, this.location.longitude),
+          map: map.instance
+          });
+        });
+      }
+    },
+    "click .card-title": function () {
+      console.log("CARD CLOSED");
+      Session.set('showPizzaMap', false);
     }
 
   });
