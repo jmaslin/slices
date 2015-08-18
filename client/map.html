@@ -11,7 +11,7 @@
 <template name="pizzaMap">
 	<div class="map-container">
 	{{#unless geolocationError}}
-		{{> googleMap name="pizzaMap" options=mapOptions}}
+		{{> googleMap name="pizzaMap" options=pizzaMapOptions}}
 	{{else}}
 		Geolocation failed: {{geolocationError}}
 	{{/unless}}

@@ -8,6 +8,7 @@ if (Meteor.isClient) {
   var MAP_ZOOM = 16;
 
   Session.set('showMap', false);
+  Session.set('showPizzaMap', false);
   Session.set('showForm', false);
 
   Meteor.startup(function () {
@@ -149,43 +150,43 @@ if (Meteor.isClient) {
     });
   })
 
-  Template.map.onCreated(function () {  
+  Template.pizza.onCreated(function () {  
     var self = this;
 
     console.log(self.data.location);
 
     if (self.data.location) {
-      GoogleMaps.ready('map', function (map) {
+      GoogleMaps.ready('pizzaMap', function (map) {
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(self.data.location.latitude, self.data.location.longitude),
         map: map.instance
       });
     });
     }
-    else if (Session.get('pizzaName')) {
-      GoogleMaps.ready('map', function (map) {
-        var latLng = Geolocation.latLng();
+    // else if (Session.get('pizzaName')) {
+    //   GoogleMaps.ready('map', function (map) {
+    //     var latLng = Geolocation.latLng();
 
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(latLng.lat, latLng.lng),
-          map: map.instance
-        });
-      });
-    } else {
-      GoogleMaps.ready('map', function (map) {
-        var mapPizzas = Parties.find({ location: { $exists: true} }).fetch();
+    //     var marker = new google.maps.Marker({
+    //       position: new google.maps.LatLng(latLng.lat, latLng.lng),
+    //       map: map.instance
+    //     });
+    //   });
+    // } else {
+    //   GoogleMaps.ready('map', function (map) {
+    //     var mapPizzas = Parties.find({ location: { $exists: true} }).fetch();
 
-        for (i = 0; i < mapPizzas.length; i++) {
-          var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(mapPizzas[i].location.latitude, mapPizzas[i].location.longitude),
-            map: map.instance
-          });
+    //     for (i = 0; i < mapPizzas.length; i++) {
+    //       var marker = new google.maps.Marker({
+    //         position: new google.maps.LatLng(mapPizzas[i].location.latitude, mapPizzas[i].location.longitude),
+    //         map: map.instance
+    //       });
 
-          console.log(mapPizzas[i].location);
-        }
+    //       console.log(mapPizzas[i].location);
+    //     }
 
-      });
-    }
+    //   });
+    // }
 
   });
 
@@ -200,6 +201,10 @@ if (Meteor.isClient) {
     "click .leave": function () {
       Meteor.call("leavePizza", this._id, Meteor.userId());
       sAlert.warning('You left the pizza party: ' + this.name);
+    },
+    "click .activator": function () {
+      console.log("PIZZA MAP GO");
+      Session.set('showPizzaMap', true);
     }
 
   });
@@ -221,9 +226,12 @@ if (Meteor.isClient) {
       }
       return false;
     },
-    mapOptions: function () {
+    showPizzaMap: function () {
+      return Session.get('showPizzaMap');
+    },
+    pizzaMapOptions: function () {
       var self = this;
-      if (GoogleMaps.loaded()) {
+      if (GoogleMaps.loaded() && self.location) {
         console.log(self.location);
         return {
           center: new google.maps.LatLng(self.location.latitude, self.location.longitude),
@@ -231,7 +239,8 @@ if (Meteor.isClient) {
           streetViewControl: false,
           zoomControl: false,
           mapTypeControl: false,
-          maxZoom: 18
+          maxZoom: 18,
+          draggable: false
         };
       }
     }
@@ -247,6 +256,22 @@ if (Meteor.isClient) {
     // }
 
   });
+
+//   Template.pizzaMap.helpers({
+//     pizzaMapOptions: function () {
+//       var self = this;
+//       if (GoogleMaps.loaded()) {
+//         console.log(self.location);
+//         return {
+//           center: new google.maps.LatLng(self.location.latitude, self.location.longitude),
+//           zoom: MAP_ZOOM,
+//           streetViewControl: false,
+//           zoomControl: false,
+//           mapTypeControl: false,
+//           maxZoom: 18
+//         };
+//       }
+// }});
 
   Template.member.rendered = function () {
     $('.tooltipped').tooltip({delay: 25});
