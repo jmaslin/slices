@@ -3,7 +3,7 @@
   <div class="col s12 m6 l4">
     <div class="card">
       <div class="card-image waves-effect waves-block waves-light">
-        <img src="images/slices.jpg">
+        <img class="activator" src="images/slices.jpg">
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">{{name}}</span>
@@ -21,13 +21,13 @@
       </div>
       <div class="card-action">
       	<div class="row non-owner">
-	    	<a href="/parties/{{_id}}" class="col details waves-effect waves-light btn-flat s6">Details</a>
+	    	<a href="/parties/{{_id}}" class="col details waves-effect black-text waves-light btn-flat s6">Details</a>
        	{{#if isOtherUser}}
        		{{#if isPizzaMember}}
-        		<a class="col leave waves-effect waves-light btn-flat s6">Leave Party</a>
+        		<a class="col leave waves-effect waves-light black-text btn-flat s6">Leave Party</a>
        		{{/if}}
  					{{#unless isPizzaMember}}
-        		<a class="col join waves-effect waves-light btn-flat s6">Join Party</a>
+        		<a class="col join waves-effect waves-light black-text btn-flat s6">Join Party</a>
         	{{/unless}}
       	{{/if}}
       	</div>
@@ -39,6 +39,12 @@
   	    	<div class="divider"></div>
   	    {{/if}}
         </div>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{ name }}<i class="material-icons right">close</i></span>
+          <div class="map">
+           {{>map}}
+          </div>
       </div>
     </div>
   </div>

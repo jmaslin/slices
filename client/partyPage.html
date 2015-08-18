@@ -10,7 +10,9 @@
 	</div>
 
 	<div class="row">
+		<div class="map-container">
 		{{> partyMap}}
+		</div>
 	</div>
 
 </template>
@@ -22,9 +24,7 @@
 <template name="partyMap">
 
 	<div class="map">
-		<div class="map-container">
 			{{> googleMap name="map" options=mapOptions}}
-		</div>
 	</div>
 	
 </template>

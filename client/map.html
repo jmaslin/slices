@@ -7,3 +7,13 @@
     {{/unless}}
   </div>
 </template>
+
+<template name="pizzaMap">
+	<div class="map-container">
+	{{#unless geolocationError}}
+		{{> googleMap name="pizzaMap" options=mapOptions}}
+	{{else}}
+		Geolocation failed: {{geolocationError}}
+	{{/unless}}
+	</div>
+</template>

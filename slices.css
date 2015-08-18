@@ -1,6 +1,11 @@
 /* CSS declarations go here */
 .card {
 	border-radius: 0;
+	background-color: #fff176;
+}
+
+body {
+	background-color: #c62828;
 }
 
 .image-prompt .row {
@@ -143,6 +148,10 @@
 	height: 35vh;
 }
 
+.card .card-reveal .map {
+	height: 80%;
+}
+
 .map-container {
 	width: 100%;
 	height: 100%;
@@ -175,7 +184,7 @@
 
 .my-pizzas {
 	margin-top: 0.5rem;
-	background-color: #EE6E73;
+	background-color: #f44336;
 	margin-bottom: 0 !important;
 }
 

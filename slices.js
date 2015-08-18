@@ -115,10 +115,9 @@ if (Meteor.isClient) {
         };
       }
     }
-
   });
 
-  Template.partyPage.helpers({
+  Template.partyMap.helpers({
     mapOptions: function () {
       var self = this;
       if (GoogleMaps.loaded()) {
@@ -153,7 +152,17 @@ if (Meteor.isClient) {
   Template.map.onCreated(function () {  
     var self = this;
 
-    if (Session.get('pizzaName')) {
+    console.log(self.data.location);
+
+    if (self.data.location) {
+      GoogleMaps.ready('map', function (map) {
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(self.data.location.latitude, self.data.location.longitude),
+        map: map.instance
+      });
+    });
+    }
+    else if (Session.get('pizzaName')) {
       GoogleMaps.ready('map', function (map) {
         var latLng = Geolocation.latLng();
 
@@ -211,6 +220,20 @@ if (Meteor.isClient) {
         }
       }
       return false;
+    },
+    mapOptions: function () {
+      var self = this;
+      if (GoogleMaps.loaded()) {
+        console.log(self.location);
+        return {
+          center: new google.maps.LatLng(self.location.latitude, self.location.longitude),
+          zoom: MAP_ZOOM,
+          streetViewControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+          maxZoom: 18
+        };
+      }
     }
     // pizzaMembers: function () {
 
