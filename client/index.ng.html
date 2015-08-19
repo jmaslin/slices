@@ -1,0 +1,29 @@
+<div ng-controller="PartiesListCtrl" layout="column" layout-fill>
+
+	<h1 class="md-headline-2">Slices</h1>
+
+	<div flex layout="row" layout-align="start center">
+		<form flex="50">
+			<md-input-container>
+			  <label>Party Name</label>
+			  <input ng-model="newParty.name">
+		  </md-input-container>
+		  <md-button ng-click="parties.save(newParty); newParty = '';">Add</md-button>
+		</form>
+	</div>
+
+	<div flex layout="row" layout-align="space-between center" layout-wrap>
+
+	  <md-card ng-repeat="party in parties">
+	    <md-card-content>
+	      {{party.name}}
+	    </md-card-content>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button>Action 1</md-button>
+        <md-button ng-click="removeParty(party)">Cancel Party</md-button>
+      </div>
+ 	  </md-card>
+
+  </div>
+
+</div>

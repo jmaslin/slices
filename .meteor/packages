@@ -5,5 +5,10 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
+urigo:angular
+angular:angular-material
+angularui:angular-ui-router
+accounts-password
+accounts-ui
+accounts-facebook
+tmeasday:publish-counts
