@@ -18,6 +18,7 @@
 	  <md-card flex-gt-md="30" flex-md="45" flex="100" ng-repeat="party in parties">
 	    <md-card-content>
 	      {{party.name}}
+	      <p>Started by {{ creator(party) | displayName }}</p>
 	    </md-card-content>
       <div class="md-actions" layout="row" layout-align="end center">
         <md-button ng-href="/parties/{{party._id}}">Details</md-button>

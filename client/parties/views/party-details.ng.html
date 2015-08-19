@@ -2,8 +2,16 @@
 
 Here you will see the details of party number: {{ party._id }}
 
+<p>Party started by: WHO</p>
 <pre>
 {{ party }}
 </pre>
+
+<ul>
+  Users to invite:
+  <li ng-repeat="user in users | uninvited:party">
+    <div>{{ user | displayName }}</div>
+  </li>
+</ul>
 
 </div>
